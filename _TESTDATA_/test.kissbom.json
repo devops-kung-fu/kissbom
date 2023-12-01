@@ -1,0 +1,13 @@
+{
+    "packages": [
+        {
+            "purl": "pkg:docker/cassandra@sha256:244fd47e07d1004f0aed9c",
+            "license": "MIT",
+            "copyright": "2023 Test Inc.",
+            "notes": "an optional notes string"
+        },
+        {
+            "purl": "pkg:docker/cassandra@sha256:244fd47e07d1004f0aed9c"
+        }
+    ]
+}
