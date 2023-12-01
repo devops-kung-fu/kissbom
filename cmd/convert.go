@@ -29,6 +29,7 @@ var (
 			converter := lib.NewConverter()
 			converter.OutputFormat = selectedFormat
 
+			log.Println("starting conversion")
 			err := converter.Convert(args[0])
 			if err != nil {
 				util.PrintErr(err)
@@ -36,6 +37,8 @@ var (
 			}
 
 			log.Println("finished")
+			util.PrintInfof("Saved KISSBOM as: %v\n", converter.OutputFileName)
+			util.PrintSuccess("DONE!")
 			os.Exit(0)
 		},
 	}
