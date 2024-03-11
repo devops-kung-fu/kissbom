@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"path"
+	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/spf13/afero"
@@ -80,7 +81,8 @@ func (c *Converter) buildOutputFilename(cdx *cyclonedx.BOM) string {
 		timestamp := cdx.Metadata.Timestamp
 		return fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
 	}
-	return c.OutputFileName
+	t := time.Now()
+	return fmt.Sprint(t.Format("20060102150405"))
 }
 
 // Function to write the KissBOM to a file based on the specified output format

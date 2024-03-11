@@ -24,77 +24,93 @@
             "program": "${workspaceFolder}/main.go",
             "args": [
                 "--debug=true",
-                "--output-folder=./_TESTDATA_/", "convert", "./_TESTDATA_/juiceshop.cyclonedx.json"]
-            },
-            {
-                "name": "Debug (output json)",
-                "type": "go",
-                "request": "launch",
-                "mode": "auto",
-                "program": "${workspaceFolder}/main.go",
-                "args": [
-                    "--debug=true",
-                    "convert",
-                    "--format",
-                    "yaml",
-                    "./_TESTDATA_/juiceshop.cyclonedx.json"
-                ]
-            },
-            {
-                "name": "Debug (output yaml)",
-                "type": "go",
-                "request": "launch",
-                "mode": "auto",
-                "program": "${workspaceFolder}/main.go",
-                "args": [
-                    "--debug=true",
-                    "convert",
-                    "--format",
-                    "yaml",
-                    "./_TESTDATA_/juiceshop.cyclonedx.json"
-                ]
-            },
-            {
-                "name": "Debug (output csv)",
-                "type": "go",
-                "request": "launch",
-                "mode": "auto",
-                "program": "${workspaceFolder}/main.go",
-                "args": [
-                    "--debug=true",
-                    "convert",
-                    "--format",
-                    "csv",
-                    "./_TESTDATA_/juiceshop.cyclonedx.json"
-                ]
-            },
-            {
-                "name": "Debug (output minimal)",
-                "type": "go",
-                "request": "launch",
-                "mode": "auto",
-                "program": "${workspaceFolder}/main.go",
-                "args": [
-                    "--debug=true",
-                    "convert",
-                    "--format",
-                    "minimal",
-                    "./_TESTDATA_/juiceshop.cyclonedx.json"
-                ]
-            },
-            {
-                "name": "Debug (output compatible)",
-                "type": "go",
-                "request": "launch",
-                "mode": "auto",
-                "program": "${workspaceFolder}/main.go",
-                "args": [
-                    "--debug=true",
-                    "convert",
-                    "--format",
-                    "compatible",
-                    "./_TESTDATA_/juiceshop.cyclonedx.json"
-                ]
-            },
-        ]
-    }
+                "--output-folder=./_TESTDATA_/",
+                "convert",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (input cdx 1.5, output default, output folder)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "--output-folder=./_TESTDATA_/",
+                "convert",
+                "./_TESTDATA_/1.5.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output json)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "yaml",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output yaml)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "yaml",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output csv)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "csv",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output minimal)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "minimal",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output compatible)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "compatible",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+    ]
+}
