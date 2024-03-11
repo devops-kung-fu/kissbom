@@ -41,18 +41,18 @@ func (c *Converter) Convert(filename string) error {
 
 	log.Printf("bytes: %v", len(source))
 
-	kissbom, filename, err := c.transform(source)
+	kissbom, err := c.transform(source)
 	if err != nil {
 		return err
 	}
 
-	return c.writeToFile(kissbom, c.OutputFormat, filename)
+	return c.writeToFile(kissbom)
 }
 
 // transform takes a byte slice representing a CycloneDX Bill of Materials (BOM) in JSON format,
 // decodes it into a CycloneDX BOM object, and then transforms it into a KissBOM object along
 // with a filename. Any decoding errors are returned as an error.
-func (c *Converter) transform(source []byte) (kissbom models.KissBOM, filename string, err error) {
+func (c *Converter) transform(source []byte) (kissbom models.KissBOM, err error) {
 	var cdx cyclonedx.BOM
 
 	err = cyclonedx.NewBOMDecoder(bytes.NewReader(source), cyclonedx.BOMFileFormatJSON).Decode(&cdx)
@@ -62,7 +62,9 @@ func (c *Converter) transform(source []byte) (kissbom models.KissBOM, filename s
 
 	log.Println("transformed to kissbom")
 
-	return models.NewKissBOMFromCycloneDX(&cdx), c.buildOutputFilename(&cdx), nil
+	c.OutputFileName = c.buildOutputFilename(&cdx)
+
+	return models.NewKissBOMFromCycloneDX(&cdx), nil
 }
 
 // buildOutputFilename builds the output filename from the provided CycloneDX BOM
@@ -75,34 +77,34 @@ func (c *Converter) buildOutputFilename(cdx *cyclonedx.BOM) string {
 		subject := cdx.Metadata.Component.Name
 		publisher := cdx.Metadata.Component.Publisher
 		timestamp := cdx.Metadata.Timestamp
-		return fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
+		c.OutputFileName = fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
 	}
 	return c.OutputFileName
 }
 
 // Function to write the KissBOM to a file based on the specified output format
-func (c *Converter) writeToFile(kissbom models.KissBOM, outputFormat string, filename string) error {
+func (c *Converter) writeToFile(kissbom models.KissBOM) error {
 	var outputData []byte
 	var err error
 
-	switch outputFormat {
+	switch c.OutputFormat {
 	case models.OptionJSON:
 		outputData, err = kissbom.JSON()
-		filename += ".json"
+		c.OutputFileName += ".json"
 	case models.OptionYAML:
 		outputData, err = kissbom.YAML()
-		filename += ".yaml"
+		c.OutputFileName += ".yaml"
 	case models.OptionCSV:
 		outputData, err = kissbom.CSV()
-		filename += ".csv"
+		c.OutputFileName += ".csv"
 	case models.OptionMinimal:
 		outputData, err = kissbom.Minimal()
-		filename += ".json"
+		c.OutputFileName += ".json"
 	case models.OptionCompatible:
 		outputData, err = kissbom.Compatible()
-		filename += ".cyclonedx.json"
+		c.OutputFileName += ".cyclonedx.json"
 	default:
-		err = fmt.Errorf("unsupported output format: %s", outputFormat)
+		err = fmt.Errorf("unsupported output format: %s", c.OutputFormat)
 	}
 
 	if err != nil {
@@ -112,7 +114,7 @@ func (c *Converter) writeToFile(kissbom models.KissBOM, outputFormat string, fil
 	log.Printf("final bytes: %v", len(outputData))
 
 	// Use afero to write the output data to the file
-	err = afero.WriteFile(c.Afs, filename, outputData, 0644)
-	log.Printf("saved: %v", filename)
+	err = afero.WriteFile(c.Afs, c.OutputFileName, outputData, 0644)
+	log.Printf("saved: %v", c.OutputFileName)
 	return err
 }
