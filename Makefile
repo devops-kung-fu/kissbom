@@ -18,11 +18,11 @@ build: ## Builds the application
 	go build
 
 test: ## Runs tests and coverage
-	go test -v -coverprofile=coverage.out ./... && go tool cover -func=coverage.out
+	go test -v -coverprofile=coverage.out ./...
+	go tool cover -func=coverage.out
 	go tool cover -html=coverage.out -o coverage.html
+	gcov2lcov -infile=coverage.out -outfile=coverage.lcov
 
-check: build ## Tests the pre-commit hooks if they exist
-	hookz reset --verbose --debug --verbose-output 
-	. .git/hooks/pre-commit
+check: build test
 
 all: title build test ## Makes all targets
