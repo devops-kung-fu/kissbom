@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"path"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/spf13/afero"
@@ -16,6 +17,7 @@ import (
 type Converter struct {
 	Afs            *afero.Afero // Afero file system abstraction for file operations.
 	OutputFileName string       // Name of the output file.
+	OutputFolder   string       //The folder in which to save the generated file.
 	OutputFormat   string       // Desired output format.
 }
 
@@ -46,6 +48,7 @@ func (c *Converter) Convert(filename string) error {
 		return err
 	}
 
+	filename = path.Join(c.OutputFolder, filename)
 	return c.writeToFile(kissbom, c.OutputFormat, filename)
 }
 

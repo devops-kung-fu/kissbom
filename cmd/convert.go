@@ -16,6 +16,7 @@ var (
 	outputFormats = []string{"json", "yaml", "csv", "minimal", "compatible"}
 
 	selectedFormat string
+	outputFolder   string
 	convertCmd     = &cobra.Command{
 		Use:   "convert",
 		Short: "Converts a provided CycloneDX file to a KISSBOM format",
@@ -28,6 +29,7 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			converter := lib.NewConverter()
 			converter.OutputFormat = selectedFormat
+			converter.OutputFolder = outputFolder
 
 			err := converter.Convert(args[0])
 			if err != nil {
@@ -44,6 +46,7 @@ var (
 func init() {
 	rootCmd.AddCommand(convertCmd)
 	convertCmd.Flags().StringVarP(&selectedFormat, "format", "f", "json", fmt.Sprintf("select one of the valid options: %s", outputFormats))
+	convertCmd.Flags().StringVarP(&outputFolder, "output-folder", "o", ".", "the output folder for the converted file")
 	_ = rootCmd.Flags().SetAnnotation("format", cobra.BashCompOneRequiredFlag, []string{"true"})
 
 }
