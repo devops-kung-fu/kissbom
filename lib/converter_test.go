@@ -134,12 +134,13 @@ func TestTransform_Success(t *testing.T) {
 		OutputFileName: "test",
 	}
 
-	kissBom, filename, err := converter.transform([]byte(jsonContent))
+	kissBom, err := converter.transform([]byte(jsonContent))
 
 	assert.NoError(t, err, "Expected no error")
 	assert.NotNil(t, kissBom, "Expected KissBOM object to be not nil")
-	assert.NotEmpty(t, filename, "Expected filename to be not empty")
-	//assert.Len(t, kissBom.Packages, 1)
+	assert.NotEmpty(t, converter.OutputFileName, "Expected filename to be not empty")
+	assert.Equal(t, converter.OutputFileName, "test")
+	assert.Len(t, kissBom.Packages, 1)
 	assert.Equal(t, kissBom.Packages[0].Purl, "pkg:pypi/requests@2.26.0")
 }
 
@@ -150,7 +151,7 @@ func TestTransform_DecodeError(t *testing.T) {
 
 	invalidCycloneDxJSON := []byte(`{"fake""}`)
 
-	_, _, err := converter.transform(invalidCycloneDxJSON)
+	_, err := converter.transform(invalidCycloneDxJSON)
 
 	assert.Error(t, err, "Expected an error due to invalid JSON")
 }
@@ -181,7 +182,9 @@ func TestBuildOutputFilename(t *testing.T) {
 
 func TestConverter_writeToFile(t *testing.T) {
 	converter := Converter{
-		Afs: &afero.Afero{Fs: afero.NewMemMapFs()},
+		Afs:            &afero.Afero{Fs: afero.NewMemMapFs()},
+		OutputFileName: "&*%/\"",
+		OutputFormat:   models.OptionMinimal,
 	}
 
 	kissBOM := models.KissBOM{
@@ -190,9 +193,7 @@ func TestConverter_writeToFile(t *testing.T) {
 		},
 	}
 
-	filename := "&*%/\""
-
-	err := converter.writeToFile(kissBOM, "minimal", filename)
+	err := converter.writeToFile(kissBOM)
 	assert.NoError(t, err)
 
 }

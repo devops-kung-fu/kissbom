@@ -65,8 +65,8 @@ kissbom convert test.cyclonedx.json //where test.cyclonedx.json is a valid Cyclo
 |---|---|
 |```--format=json``` | Outputs all 4 KissBOM fields in JSON format. This is the default output format |
 |```--format=yaml``` | Outputs all 4 KissBOM fields in YAML format |
-|```--format=csv``` | Outputs all 3 KissBOM fields into a CSV formatted file |
-|```--format=minimal``` | Outputs just the KissBOM required fields into a JSON formatted file |
+|```--format=csv``` | Outputs all 4 KissBOM fields into a CSV formatted file |
+|```--format=minimal``` | Outputs just the KissBOM required fields into a JSON formatted file (Purl) |
 |```--format=compatible``` | Outputs all 4 KissBOM fields in a CycloneDX formatted JSON file |
 
 ### Debugging
