@@ -49,8 +49,8 @@ func (c *Converter) Convert(filename string) error {
 		return err
 	}
 
-	filename = path.Join(c.OutputFolder, filename)
-	return c.writeToFile(kissbom, c.OutputFormat, filename)
+	c.OutputFileName = path.Join(c.OutputFolder, filename)
+	return c.writeToFile(kissbom)
 }
 
 // transform takes a byte slice representing a CycloneDX Bill of Materials (BOM) in JSON format,
@@ -81,7 +81,7 @@ func (c *Converter) buildOutputFilename(cdx *cyclonedx.BOM) string {
 		subject := cdx.Metadata.Component.Name
 		publisher := cdx.Metadata.Component.Publisher
 		timestamp := cdx.Metadata.Timestamp
-		c.OutputFileName = fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
+		return fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
 	}
 	t := time.Now()
 	return fmt.Sprint(t.Format("20060102150405"))
