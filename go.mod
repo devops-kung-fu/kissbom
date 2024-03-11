@@ -3,7 +3,7 @@ module github.com/devops-kung-fu/kissbom
 go 1.21.4
 
 require (
-	github.com/CycloneDX/cyclonedx-go v0.7.2
+	github.com/CycloneDX/cyclonedx-go v0.8.0
 	github.com/devops-kung-fu/common v0.2.6
 	github.com/gocarina/gocsv v0.0.0-20231116093920-b87c2d0e983a
 	github.com/gookit/color v1.5.4
