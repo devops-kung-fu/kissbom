@@ -39,7 +39,7 @@ func TestConvert_Success(t *testing.T) {
 	}
 
 	e := func() error {
-		var data []byte = []byte(jsonContent)
+		var data = []byte(jsonContent)
 		f, err := (converter.Afs).Fs.OpenFile("test.json", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.FileMode(0644))
 		if err != nil {
 			return err
@@ -82,7 +82,7 @@ func TestConvert_Success(t *testing.T) {
 	assert.Error(t, err, "Expected no error")
 
 	e = func() error {
-		var data []byte = []byte("<>test")
+		var data = []byte("<>test")
 		f, err := (*converter.Afs).Fs.OpenFile("test.json", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.FileMode(0644))
 		if err != nil {
 			return err
