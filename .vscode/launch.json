@@ -4,14 +4,43 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Debug (output default)",
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (output default, output folder)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "--output-folder=./_TESTDATA_/",
+                "convert",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
+        },
+        {
+            "name": "Debug (input cdx 1.5, output default, output folder)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go",
+            "args": [
+                "--debug=true",
+                "--output-folder=./_TESTDATA_/",
+                "convert",
+                "./_TESTDATA_/1.5.cyclonedx.json"
+            ]
         },
         {
             "name": "Debug (output json)",
@@ -19,7 +48,13 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert","--format", "yaml", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "yaml",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
         },
         {
             "name": "Debug (output yaml)",
@@ -27,7 +62,13 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert","--format", "yaml", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "yaml",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
         },
         {
             "name": "Debug (output csv)",
@@ -35,7 +76,13 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert","--format", "csv", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "csv",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
         },
         {
             "name": "Debug (output minimal)",
@@ -43,7 +90,13 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert","--format", "minimal", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "minimal",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
         },
         {
             "name": "Debug (output compatible)",
@@ -51,7 +104,13 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
-            "args": ["--debug=true", "convert","--format", "compatible", "./_TESTDATA_/juiceshop.cyclonedx.json"]
+            "args": [
+                "--debug=true",
+                "convert",
+                "--format",
+                "compatible",
+                "./_TESTDATA_/juiceshop.cyclonedx.json"
+            ]
         },
     ]
 }

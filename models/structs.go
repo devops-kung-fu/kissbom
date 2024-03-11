@@ -54,12 +54,14 @@ func NewKissBOMFromCycloneDX(cdx *cyclonedx.BOM) (kissbom KissBOM) {
 
 	// Iterate through each component and populate the KissBOM Packages
 	for _, component := range *cdx.Components {
-		kissbom.Packages = append(kissbom.Packages, Package{
-			Purl:      component.PackageURL,
-			License:   extractLicense(component),
-			Copyright: component.Copyright,
-			Notes:     component.Description,
-		})
+		if component.PackageURL != "" {
+			kissbom.Packages = append(kissbom.Packages, Package{
+				Purl:      component.PackageURL,
+				License:   extractLicense(component),
+				Copyright: component.Copyright,
+				Notes:     component.Description,
+			})
+		}
 	}
 
 	// Return the populated KissBOM

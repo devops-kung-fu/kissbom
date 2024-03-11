@@ -1,6 +1,8 @@
 package lib
 
 import (
+	"io"
+	"os"
 	"testing"
 	"time"
 
@@ -36,7 +38,23 @@ func TestConvert_Success(t *testing.T) {
 		Afs: &afero.Afero{Fs: afero.NewMemMapFs()},
 	}
 
-	converter.Afs.WriteFile("test.json", []byte(jsonContent), 0644)
+	e := func() error {
+		var data []byte = []byte(jsonContent)
+		f, err := (converter.Afs).Fs.OpenFile("test.json", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.FileMode(0644))
+		if err != nil {
+			return err
+		}
+		n, err := f.Write(data)
+		if err == nil && n < len(data) {
+			err = io.ErrShortWrite
+		}
+		if err1 := f.Close(); err == nil {
+			err = err1
+		}
+		return err
+	}()
+
+	assert.NoError(t, e)
 
 	converter.OutputFormat = "json" // Choose a valid output format for testing
 	converter.OutputFileName = "test_output"
@@ -63,7 +81,23 @@ func TestConvert_Success(t *testing.T) {
 	err = converter.Convert("test.json")
 	assert.Error(t, err, "Expected no error")
 
-	converter.Afs.WriteFile("test.json", []byte("<>test"), 0644)
+	e = func() error {
+		var data []byte = []byte("<>test")
+		f, err := (*converter.Afs).Fs.OpenFile("test.json", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.FileMode(0644))
+		if err != nil {
+			return err
+		}
+		n, err := f.Write(data)
+		if err == nil && n < len(data) {
+			err = io.ErrShortWrite
+		}
+		if err1 := f.Close(); err == nil {
+			err = err1
+		}
+		return err
+	}()
+
+	assert.NoError(t,e)
 	converter.OutputFormat = "csv" // Choose a valid output format for testing
 	err = converter.Convert("test.json")
 	assert.Error(t, err, "Expected no error")

@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"path"
+	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/spf13/afero"
@@ -16,6 +18,7 @@ import (
 type Converter struct {
 	Afs            *afero.Afero // Afero file system abstraction for file operations.
 	OutputFileName string       // Name of the output file.
+	OutputFolder   string       //The folder in which to save the generated file.
 	OutputFormat   string       // Desired output format.
 }
 
@@ -46,7 +49,8 @@ func (c *Converter) Convert(filename string) error {
 		return err
 	}
 
-	return c.writeToFile(kissbom)
+	filename = path.Join(c.OutputFolder, filename)
+	return c.writeToFile(kissbom, c.OutputFormat, filename)
 }
 
 // transform takes a byte slice representing a CycloneDX Bill of Materials (BOM) in JSON format,
@@ -79,7 +83,8 @@ func (c *Converter) buildOutputFilename(cdx *cyclonedx.BOM) string {
 		timestamp := cdx.Metadata.Timestamp
 		c.OutputFileName = fmt.Sprintf("%s_%s_%s", subject, publisher, timestamp)
 	}
-	return c.OutputFileName
+	t := time.Now()
+	return fmt.Sprint(t.Format("20060102150405"))
 }
 
 // Function to write the KissBOM to a file based on the specified output format
