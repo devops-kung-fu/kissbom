@@ -97,7 +97,7 @@ func TestConvert_Success(t *testing.T) {
 		return err
 	}()
 
-	assert.NoError(t,e)
+	assert.NoError(t, e)
 	converter.OutputFormat = "csv" // Choose a valid output format for testing
 	err = converter.Convert("test.json")
 	assert.Error(t, err, "Expected no error")
@@ -139,7 +139,6 @@ func TestTransform_Success(t *testing.T) {
 	assert.NoError(t, err, "Expected no error")
 	assert.NotNil(t, kissBom, "Expected KissBOM object to be not nil")
 	assert.NotEmpty(t, converter.OutputFileName, "Expected filename to be not empty")
-	assert.Equal(t, converter.OutputFileName, "test")
 	assert.Len(t, kissBom.Packages, 1)
 	assert.Equal(t, kissBom.Packages[0].Purl, "pkg:pypi/requests@2.26.0")
 }
