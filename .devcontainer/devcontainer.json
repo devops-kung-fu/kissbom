@@ -16,9 +16,12 @@
     "customizations": {
         "vscode": {
             "settings": {
-                "terminal.integrated.customGlyphs": true,
-                "terminal.integrated.fontFamily": "'0xProto Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+                "window.menuBarVisibility": "classic",
+                "workbench.activityBar.location": "top",
+                "debug.toolBarLocation": "docked",
                 "editor.formatOnSave": true,
+                "amazonQ.telemetry": false,
+                "amazonQ.shareContentWithAWS": false,
                 "go.buildTags": "",
                 "go.toolsEnvVars": {
                     "CGO_ENABLED": "0"
@@ -58,9 +61,9 @@
                 "jebbs.plantuml",
                 "foxundermoon.shell-format",
                 "ahebrank.yaml2json",
-                "amazonwebservices.aws-toolkit-vscode",
                 "markis.code-coverage",
-                "Gruntfuggly.todo-tree" // Highlights TODO comments",
+                "amazonwebservices.amazon-q-vscode",
+                "Gruntfuggly.todo-tree", // Highlights TODO comments",
             ]
         }
     },
